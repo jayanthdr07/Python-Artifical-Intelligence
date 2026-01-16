@@ -419,3 +419,175 @@ Checks each record for missing data
 Displays warnings or records
 
 Handles errors safely
+******************************************************
+1. Graph Class Definition
+class Graph:
+    def __init__(self, directed=False):
+        self.directed = directed
+        self.nodes = []
+        self.adj_list = {}
+        self.adj_matrix = []
+
+
+directed: Boolean, determines if the graph is directed (True) or undirected (False).
+
+nodes: List of all nodes in the graph.
+
+adj_list: A dictionary representing the adjacency list, where keys are node names and values are lists of connected nodes.
+
+adj_matrix: A 2D list representing the adjacency matrix. Rows and columns correspond to nodes; 1 indicates an edge.
+
+2. Adding a Node
+def add_node(self, node):
+    if node in self.nodes:
+        print("Node already exists!")
+        return
+    self.nodes.append(node)
+    self.adj_list[node] = []
+    for row in self.adj_matrix:
+        row.append(0)
+    self.adj_matrix.append([0] * len(self.nodes))
+    print(f"Node {node} added.")
+
+
+Adds a new node to the graph.
+
+Updates adjacency list: initializes an empty list for the new node.
+
+Updates adjacency matrix:
+
+Adds a new column (0) to all existing rows.
+
+Adds a new row of zeros for the new node.
+
+Ensures the graph structure stays consistent.
+
+3. Removing a Node
+def remove_node(self, node):
+    if node not in self.nodes:
+        print("Node not found!")
+        return
+    idx = self.nodes.index(node)
+    self.nodes.remove(node)
+    self.adj_list.pop(node)
+    for n in self.adj_list:
+        if node in self.adj_list[n]:
+            self.adj_list[n].remove(node)
+    self.adj_matrix.pop(idx)
+    for row in self.adj_matrix:
+        row.pop(idx)
+    print(f"Node {node} removed.")
+
+
+Removes a node from the graph.
+
+Removes node from:
+
+nodes list
+
+adj_list dictionary
+
+Any adjacency list of other nodes
+
+adj_matrix (removes the corresponding row and column)
+
+4. Adding an Edge
+def add_edge(self, src, dest):
+    if src not in self.nodes or dest not in self.nodes:
+        print("One or both nodes not found!")
+        return
+    if dest not in self.adj_list[src]:
+        self.adj_list[src].append(dest)
+        self.adj_matrix[self.nodes.index(src)][self.nodes.index(dest)] = 1
+    if not self.directed:
+        if src not in self.adj_list[dest]:
+            self.adj_list[dest].append(src)
+            self.adj_matrix[self.nodes.index(dest)][self.nodes.index(src)] = 1
+    print(f"Edge {src} -> {dest} added.")
+
+
+Adds an edge from src to dest.
+
+Updates both adjacency list and adjacency matrix.
+
+For undirected graphs, also adds the reverse edge (dest -> src).
+
+5. Removing an Edge
+def remove_edge(self, src, dest):
+    if src not in self.nodes or dest not in self.nodes:
+        print("One or both nodes not found!")
+        return
+    if dest in self.adj_list[src]:
+        self.adj_list[src].remove(dest)
+        self.adj_matrix[self.nodes.index(src)][self.nodes.index(dest)] = 0
+    if not self.directed:
+        if src in self.adj_list[dest]:
+            self.adj_list[dest].remove(src)
+            self.adj_matrix[self.nodes.index(dest)][self.nodes.index(src)] = 0
+    print(f"Edge {src} -> {dest} removed.")
+
+
+Removes an edge from src to dest.
+
+Updates adjacency list and matrix.
+
+For undirected graphs, removes the reverse edge as well.
+
+6. Displaying the Graph
+def display(self):
+    print("\nAdjacency List:")
+    for node in self.adj_list:
+        print(node, ":", self.adj_list[node])
+    print("\nAdjacency Matrix:")
+    print("   " + " ".join(self.nodes))
+    for i, row in enumerate(self.adj_matrix):
+        print(self.nodes[i], " ".join(map(str, row)))
+
+
+Prints the graph in adjacency list format.
+
+Prints the graph in adjacency matrix format.
+
+7. User Interaction
+directed_choice = input("Directed graph? (y/n): ").lower() == 'y'
+g = Graph(directed=directed_choice)
+
+
+Lets the user choose directed or undirected graph.
+
+n = int(input("Enter number of nodes: "))
+for _ in range(n):
+    node = input("Enter node name: ")
+    g.add_node(node)
+
+
+Adds nodes interactively.
+
+e = int(input("Enter number of edges: "))
+for _ in range(e):
+    src, dest = input("Enter edge (src dest): ").split()
+    g.add_edge(src, dest)
+
+
+Adds edges interactively.
+
+8. Interactive Menu
+while True:
+    print("\nMenu:")
+    print("1. Add Node")
+    print("2. Remove Node")
+    print("3. Add Edge")
+    print("4. Remove Edge")
+    print("5. Display Graph")
+    print("6. Exit")
+
+
+A simple menu loop that allows the user to modify the graph:
+
+Add/remove nodes
+
+Add/remove edges
+
+Display graph
+
+Exit program
