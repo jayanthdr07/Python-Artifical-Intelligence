@@ -1,19 +1,4 @@
-# Python-Artifical-Intelligence
 
-
-1️⃣ Taking file name input
-filename = input("Enter the file name(with Extension):")
-
-Explanation:
-
-Prompts the user to enter a file name along with its extension
-(example: sample.txt, data.py)
-
-The input is stored in the variable filename
-
-This makes the program dynamic, allowing it to work with any text file
-
-2️⃣ Starting the try block
 try:
 
 Explanation:
