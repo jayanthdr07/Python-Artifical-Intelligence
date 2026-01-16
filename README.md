@@ -1,7 +1,7 @@
 # Python-Artifical-Intelligence
 
 
-
+1️⃣ Taking file name input
 filename = input("Enter the file name(with Extension):")
 
 Explanation:
