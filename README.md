@@ -1,4 +1,3 @@
-# Python-Artifical-Intelligence
 
 
 1️⃣ Taking file name input
